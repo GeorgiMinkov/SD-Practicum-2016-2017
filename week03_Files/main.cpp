@@ -1,11 +1,10 @@
 // Files.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
-#include <iostream>
-#include <fstream>
+#include "Stock.h"
 #include <string>
 #include <cmath>
+#include <algorithm>
 
 void task01();
 void task02();
@@ -39,10 +38,13 @@ int main()
 	std::cout << "\nTask04" << std::endl;
 	makeFile4("File4.txt");
 	task04("File4.txt");
-	
+
 	std::cout << "\nTask05" << std::endl;
 	makeFile5("File5.txt");
 	task05("File5.txt");
+
+	std::cout << "\nTask06" << std::endl;
+	task06("File6.txt");
 	return 0;
 }
 
@@ -57,7 +59,7 @@ void makeFile3(const std::string & fileName)
 	fo.close();
 }
 
-void makeFile() 
+void makeFile()
 {
 	std::ofstream fo("file.txt", std::ios::out);
 	float arr[] = { 1,-33.1, 13.2, 55.8, 2.2, 1.2 };
@@ -140,7 +142,7 @@ void task02()
 void task03()
 {
 	std::ifstream fi("File.txt", std::ios::in);
-	
+
 	if (fi.is_open())
 	{
 		std::string binary = "";
@@ -196,6 +198,7 @@ void makeFile4(const std::string & fileName)
 
 void task04(const std::string & fileName)
 {
+    // std::ofstream fo(fileName.c_str(), std::ios::out | std::ios::app);
 	std::ifstream fi(fileName.c_str(), std::ios::in);
 
 	if (fi.is_open())
@@ -229,7 +232,7 @@ void makeFile5(const std::string & fileName)
 	std::ofstream fo(fileName.c_str(), std::ios::out);
 
 	float arr[] = { 1121, 1221, 2341, 222 };
-	
+
 	for (size_t i = 0; i < 4; ++i) fo << arr[i] << std::endl;
 
 	fo.close();
@@ -257,20 +260,31 @@ void task05(const std::string & fileName)
 		throw "OpenFileExseption";
 	}
 }
-
+// защо при въвеждане във файла използва ostream, a не ofstream
 void task06(const std::string & fileName)
 {
-	std::ifstream fi(fileName.c_str(), std::ios::in);
+	std::fstream file(fileName.c_str(), std::ios::in | std::ios::out);
 
-	if (fi.is_open())
+	if (file.is_open())
 	{
-		size_t ID;
-		char name[25];
-		float price;
+        Stock element[8];
+
+        for (size_t i = 0; i < 8; ++i)
+        {
+            std::cin >> element[i];
+        }
+
+
+        for (size_t i = 0; i < 8; ++i)
+        {
+            file << element[i];
+        }
 
 	}
 	else
 	{
-		throw "FileOpenExseption";
+		// throw "FileOpenExseption";
+		std::cout << "FILE OPEN EXS" << std::endl;
 	}
+	file.close();
 }
