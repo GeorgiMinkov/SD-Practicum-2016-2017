@@ -1,116 +1,276 @@
+// Files.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cstring>
 #include <cmath>
-using namespace std;
 
 void task01();
 void task02();
+void makeFile();
+
+void makeFile3(const std::string &fileName);
 void task03();
-void task04();
-void task05();
-void makeFile(){
-    ofstream fo("file.txt", ios::out);
-    float arr[] = {1,-33.1, 13.2, 55.8, 2.2, 1.2};
+bool checkConditionTask03(const int &number);
 
-    for (size_t index = 0; index < 6; ++index) fo << arr[index] << endl;
+void makeFile4(const std::string &fileName);
+void task04(const std::string &fileName);
 
-    fo.close();
-}
+void makeFile5(const std::string &fileName);
+void task05(const std::string &fileName);
 
-void newFile()
-{
-     ofstream fo("fileT.txt", ios::out);
-    float arr[] = {11, 21,23,22,45 };
-
-    for (size_t index = 0; index < 6; ++index) fo << arr[index] << endl;
-
-    fo.close();
-}
+void task06(const std::string &fileName);
 int main()
 {
-    cout << "Hello world!" << endl;
-    makeFile();
-    task01();
+	std::cout << "Task01" << std::endl;
+	makeFile();
+	task01();
 
-    cout << "Hello world!" << endl;
+	std::cout << "\nTask02" << std::endl;
+	task02();
 
-    task02();
-    return 0;
+
+	std::cout << "\nTask03" << std::endl;
+	makeFile3("File.txt");
+	task03();
+
+	std::cout << "\nTask04" << std::endl;
+	makeFile4("File4.txt");
+	task04("File4.txt");
+	
+	std::cout << "\nTask05" << std::endl;
+	makeFile5("File5.txt");
+	task05("File5.txt");
+	return 0;
+}
+
+void makeFile3(const std::string & fileName)
+{
+	std::ofstream fo(fileName.c_str(), std::ios::out);
+
+	int arr[] = { 11, 21, 23, 22, 45 };
+
+	for (size_t i = 0; i < 5; ++i) fo << arr[i] << std::endl;
+
+	fo.close();
+}
+
+void makeFile() 
+{
+	std::ofstream fo("file.txt", std::ios::out);
+	float arr[] = { 1,-33.1, 13.2, 55.8, 2.2, 1.2 };
+
+	for (size_t index = 0; index < 6; ++index) fo << arr[index] << std::endl;
+
+	fo.close();
 }
 
 void task01()
 {
-    ifstream fi;
+	std::ifstream fi;
 
-    fi.open("file.txt", ios::in);
+	fi.open("file.txt", std::ios::in);
 
-    float min, max;
+	float min, max;
 
-    if (fi.is_open())
-    {
-        fi >> min;
-        max = (min);
+	if (fi.is_open())
+	{
+		fi >> min;
+		max = (min);
 
-        while(!fi.eof())
-        {
-            float tmp;
-            fi >> tmp;
+		while (!fi.eof())
+		{
+			float tmp;
+			fi >> tmp;
 
-            if (tmp < min) min = tmp;
-            if (tmp > max) max = tmp;
-        }
-    }
-    else
-    {
-        throw "Error open file exseption";
-    }
+			if (tmp < min) min = tmp;
+			if (tmp > max) max = tmp;
+		}
+	}
+	else
+	{
+		throw "Error open file exseption";
+	}
 
-    cout << "Min = " << min << "\nMax = " << max << endl;
+	std::cout << "Min = " << min << "\nMax = " << max << std::endl;
 
-    fi.close();
+	fi.close();
 }
 
 
 
 void task02()
 {
-    ifstream fi;
+	std::ifstream fi;
 
-    fi.open("file.txt", ios::in);
+	fi.open("file.txt", std::ios::in);
 
-    float min, max;
+	float min, max;
 
-    if (fi.is_open())
-    {
-        fi >> min;
-        min = fabs(min);
-        max = fabs(min);
+	if (fi.is_open())
+	{
+		fi >> min;
+		min = fabs(min);
+		max = fabs(min);
 
-        while(!fi.eof())
-        {
-            float tmp;
-            fi >> tmp;
-            tmp = fabs(tmp);
+		while (!fi.eof())
+		{
+			float tmp;
+			fi >> tmp;
+			tmp = fabs(tmp);
 
-            if (tmp < min) min = tmp;
-            if (tmp > max) max = tmp;
-        }
-    }
-    else
-    {
-        throw "Error open file exseption";
-    }
+			if (tmp < min) min = tmp;
+			if (tmp > max) max = tmp;
+		}
+	}
+	else
+	{
+		throw "Error open file exseption";
+	}
 
-    cout << "Min = " << min << "\nMax = " << max << endl;
+	std::cout << "Min = " << min << "\nMax = " << max << std::endl;
 
-    fi.close();
+	fi.close();
 }
+
+
 
 void task03()
 {
-    ifstream fi("fileT.txt");
+	std::ifstream fi("File.txt", std::ios::in);
+	
+	if (fi.is_open())
+	{
+		std::string binary = "";
+		int number;
 
-    while()
+		while (fi >> number)
+		{
+			if (checkConditionTask03(number))
+			{
+				std::cout << number << " - Not in scope\n";
+				continue;
+			}
+			else
+			{
+				int tmp = number;
+				while (tmp)
+				{
+					binary += std::to_string(tmp % 2);
+					tmp /= 2;
+				}
+				std::reverse(binary.begin(), binary.end());
+				std::cout << number << ": " << binary << std::endl;
+
+				binary = "";
+			}
+
+		}
+	}
+	else
+	{
+		throw "FileOpenException";
+	}
+
+	fi.close();
+}
+
+bool checkConditionTask03(const int &number)
+{
+	return (number > 5005 || number < 15);
+}
+
+// TASK04
+void makeFile4(const std::string & fileName)
+{
+	std::ofstream fo(fileName.c_str(), std::ios::out);
+
+	int arr[] = { 1121, 1221, 2341, 222 };
+
+	for (size_t i = 0; i < 4; ++i) fo << arr[i] << std::endl;
+
+	fo.close();
+}
+
+void task04(const std::string & fileName)
+{
+	std::ifstream fi(fileName.c_str(), std::ios::in);
+
+	if (fi.is_open())
+	{
+		std::string number;
+		size_t count = 0;
+		while (fi >> number)
+		{
+			std::string tmp = number;
+			std::reverse(number.begin(), number.end());
+
+			if (number == tmp)
+			{
+				count++;
+			}
+		}
+
+		std::cout << count << " palindromes\n";
+
+		fi.close();
+	}
+	else
+	{
+		throw "FileOpenExeption";
+		return;
+	}
+}
+
+void makeFile5(const std::string & fileName)
+{
+	std::ofstream fo(fileName.c_str(), std::ios::out);
+
+	float arr[] = { 1121, 1221, 2341, 222 };
+	
+	for (size_t i = 0; i < 4; ++i) fo << arr[i] << std::endl;
+
+	fo.close();
+}
+
+void task05(const std::string & fileName)
+{
+	std::ifstream fi(fileName.c_str(), std::ios::in);
+
+	if (fi.is_open())
+	{
+		float number, all = 0;
+
+		while (fi >> number)
+		{
+			std::cout << "Stock: " << number << " DDS: " << number * 0.2 << std::endl;
+			all += number + number * 0.2;
+		}
+		std::cout << "All: " << all << std::endl;
+
+		fi.close();
+	}
+	else
+	{
+		throw "OpenFileExseption";
+	}
+}
+
+void task06(const std::string & fileName)
+{
+	std::ifstream fi(fileName.c_str(), std::ios::in);
+
+	if (fi.is_open())
+	{
+		size_t ID;
+		char name[25];
+		float price;
+
+	}
+	else
+	{
+		throw "FileOpenExseption";
+	}
 }
