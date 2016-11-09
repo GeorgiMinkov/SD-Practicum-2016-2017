@@ -74,9 +74,10 @@ std::istream & operator>>(std::istream & in, Smartphone & source)
 	char tmpTypeChar = 'E';
 	long tmpNumber = 0;
 	std::string tmpBrand, tmpModel;
-	float tmpPrice = 0.0f, tmpDiagonal = 0.0f, tmpHours = 0.0f;
+	float tmpPrice = 0.0f, tmpDiagonal = 0.0f, tmpHours = 0.0f, tmpRam = 0.0f;
+	size_t tmpCore = 0;
 
-	in >> tmpTypeChar >> tmpNumber >> tmpBrand >> tmpModel >> tmpPrice >> tmpDiagonal >> tmpHours >> source.rearCamera >> source.frontCamera >> source.numSIM;
+	in >> tmpTypeChar >> tmpNumber >> tmpBrand >> tmpModel >> tmpPrice >> tmpCore >> tmpRam >> tmpDiagonal >> tmpHours >> source.rearCamera >> source.frontCamera >> source.numSIM;
 
 	tmpType = getType(tmpTypeChar);
 
@@ -85,6 +86,8 @@ std::istream & operator>>(std::istream & in, Smartphone & source)
 	source.setBrand(tmpBrand);
 	source.setModel(tmpModel);
 	source.setPrice(tmpPrice);
+	source.setCore(tmpCore);
+	source.setRam(tmpRam);
 	source.setDiagonal(tmpDiagonal);
 	source.setHours(tmpHours);
 

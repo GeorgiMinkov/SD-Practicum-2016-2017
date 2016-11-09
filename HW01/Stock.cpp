@@ -90,8 +90,8 @@ void Stock::setPrice(float & price)
 std::ostream & operator<<(std::ostream & out, const Stock & source)
 {
 	// DO: out stream
-
-	out << source.type << " " << source.inventoryNumber << " " << source.brand << " " << source.model << " " << source.price;
+	char charType = returnType(source.type);
+	out << charType << " " << source.inventoryNumber << " " << source.brand << " " << source.model << " " << source.price;
 	return out;
 }
 

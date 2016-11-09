@@ -10,4 +10,4 @@ void requestByModelAndBrand(const std::string &brand, const std::string &model, 
 
 void requestByPrice(const Type & type, const float &price, const std::string fileName);
 
-void requestByPriceAndMark(const Type & type, const std::string &brand, float &price, const std::string fileName);
+void requestByPriceAndBrand(const Type & type, const std::string &brand, const float &price, const std::string fileName);

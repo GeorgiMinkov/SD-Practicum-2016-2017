@@ -17,3 +17,14 @@ Type getType(char tmpType)
 	default: return E;
 	}
 }
+
+char returnType(const Type & tmpType)
+{
+	switch (tmpType)
+	{
+	case P: return 'P';
+	case L: return 'L';
+	case S: return 'S';
+	default: return 'E';
+	}
+}

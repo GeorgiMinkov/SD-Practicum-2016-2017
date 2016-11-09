@@ -60,9 +60,10 @@ std::istream & operator>>(std::istream & in, Laptop & source)
 	char tmpTypeChar = 'E';
 	long tmpNumber = 0;
 	std::string tmpBrand, tmpModel;
-	float tmpPrice = 0.0f;
+	float tmpPrice = 0.0f, tmpRam = 0.0f;
+	size_t tmpCore = 0;
 
-	in >> tmpTypeChar >> tmpNumber >> tmpBrand >> tmpModel >> tmpPrice >> source.diagonal >> source.hours;
+	in >> tmpTypeChar >> tmpNumber >> tmpBrand >> tmpModel >> tmpPrice >> tmpCore >> tmpRam >> source.diagonal >> source.hours;
 
 	tmpType = getType(tmpTypeChar);
 
@@ -71,6 +72,8 @@ std::istream & operator>>(std::istream & in, Laptop & source)
 	source.setBrand(tmpBrand);
 	source.setModel(tmpModel);
 	source.setPrice(tmpPrice);
+	source.setCore(tmpCore);
+	source.setRam(tmpRam);
 
 	return in;
 }
