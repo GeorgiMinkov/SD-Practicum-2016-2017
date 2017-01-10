@@ -23,6 +23,10 @@ int main()
 	test.addEdge(t2, t3);
 
 	// Undirected Graph
+	test.addEdge(t1, t0);
+	test.addEdge(t2, t0);
+	test.addEdge(t2, t1);
+	test.addEdge(t3, t2);
 	// test.DFS(Vortex(0, "One"));
 	test.BFS(Vortex(1, "Two"));
 	
