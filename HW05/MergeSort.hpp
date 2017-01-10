@@ -12,12 +12,12 @@ void mergeSort(Type *container, const std::size_t &left, const std::size_t &righ
 {
 	if (left < right)
 	{
-		const std::size_t middle = (left + (right - left)) / 2;
+		const std::size_t middle = left + (right - left) / 2;
 
-		mergeSort(container, left, middle);
-		mergeSort(container, middle + 1, right);
+		mergeSort<Type>(container, left, middle);
+		mergeSort<Type>(container, middle + 1, right);
 
-		merge(container, left, right, middle);
+		merge<Type>(container, left, right, middle);
 	}
 
 	return;
