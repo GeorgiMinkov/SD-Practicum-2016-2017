@@ -33,7 +33,7 @@ void Graph::BFS(const Vortex & start)
 	}
 
 	run_BFS(start, visited);
-}
+ }
 
 void Graph::run_BFS(const Vortex & start, bool * visited)
 {	
@@ -101,5 +101,133 @@ void Graph::run_DFS(const Vortex & start, bool * visited)
 			run_DFS(*it, visited);
 		}
 	}
+}
+
+bool Graph::isReachable(const Vortex & from, const Vortex & to)
+{
+	if (from.idVorterx > this->size - 1)
+	{
+		return false;
+	}
+
+	bool *visited = new bool[this->size];
+
+	for (std::size_t index = 0; index < this->size; ++index)
+	{
+		visited[index] = false;
+	}
+
+	queue<Vortex> q;
+
+	q.push(from);
+	visited[from.idVorterx] = true;
+
+	while (!q.empty())
+	{
+		Vortex tmp = q.front();
+
+		list<Vortex>::iterator it = this->adjencecy[tmp.idVorterx].begin();
+		// ++it;
+
+		for (; it != this->adjencecy[tmp.idVorterx].end(); ++it)
+		{
+			if (*it == to)
+			{
+				return true;
+			}
+
+			if (!visited[it->idVorterx])
+			{
+				visited[it->idVorterx] = true;
+				q.push(*it);
+			}
+		}
+		q.pop();
+	}
+
+	return false;
+}
+
+bool Graph::isPatcAndShowPath(const Vortex & from, const Vortex & to, stack<Vortex> &path) // with DFS
+{
+	bool *visited = new bool[this->size];
+
+	for (std::size_t index = 0; index < this->size; ++index)
+	{
+		visited[index] = false;
+	}
+
+	return isPatcAndShowPath(from, to, path, visited);
+}
+
+bool Graph::isPatcAndShowPath(const Vortex & from, const Vortex & to, stack<Vortex>& path, bool * visited)
+{
+	visited[from.idVorterx] = true;
+	path.push(from);
+
+	if (from.idVorterx == to.idVorterx) // from.operator==(to))
+	{
+		return true;
+	}
+	else
+	{
+		list<Vortex>::iterator it = this->adjencecy[from.idVorterx].begin();
+		++it;
+
+		for (; it != this->adjencecy[from.idVorterx].end(); ++it)
+		{
+			if (!visited[it->idVorterx])
+			{
+				if (isPatcAndShowPath(*it, to, path, visited))
+				{
+					return true;
+				}
+			}
+		}
+		path.pop();
+	}
+
+	return false;
+}
+
+void Graph::isPathAllPath(const Vortex & from, const Vortex & to, stack<stack<Vortex>>& allPathec)
+{
+	bool *visited = new bool[this->size];
+
+	for (std::size_t index = 0; index < this->size; ++index)
+	{
+		visited[index] = false;
+	}
+
+	stack<Vortex> path;
+
+	return isPathAllPath(from, to, path, allPathec, visited);
+}
+
+void Graph::isPathAllPath(const Vortex & from, const Vortex & to, stack<Vortex>& path, stack<stack<Vortex>>& allPathes, bool * visited)
+{
+	visited[from.idVorterx] = true;
+
+	path.push(from);
+
+	if (from.idVorterx == to.idVorterx)
+	{
+		allPathes.push(path);
+	}
+	else
+	{
+		list<Vortex>::iterator it = this->adjencecy[from.idVorterx].begin();
+		++it;
+
+		for (; it != this->adjencecy[from.idVorterx].end(); ++it)
+		{
+			if (!visited[it->idVorterx])
+			{
+				isPathAllPath(*it, to, path, allPathes, visited);
+			}
+		}
+	}
+	path.pop();
+	visited[from.idVorterx] = false;
 }
 

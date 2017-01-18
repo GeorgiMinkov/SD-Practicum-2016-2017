@@ -23,13 +23,53 @@ int main()
 	test.addEdge(t2, t3);
 
 	// Undirected Graph
-	test.addEdge(t1, t0);
-	test.addEdge(t2, t0);
-	test.addEdge(t2, t1);
-	test.addEdge(t3, t2);
+	//test.addEdge(t1, t0);
+	//test.addEdge(t2, t0);
+	//test.addEdge(t2, t1);
+	//test.addEdge(t3, t2);
 	// test.DFS(Vortex(0, "One"));
-	test.BFS(Vortex(1, "Two"));
+	// test.BFS(Vortex(1, "Two"));
 	
+	stack<Vortex> path, reverse;
+	stack<stack<Vortex>> all;
+
+	/*std::cout << test.isPatcAndShowPath(t1, t3, path);
+
+
+	while (!path.empty())
+	{
+		reverse.push(path.top());
+
+		path.pop();
+	}
+
+	while (!reverse.empty())
+	{
+		std::cout << reverse.top().idVorterx << ' ';
+		reverse.pop();
+	}*/
+
+	test.isPathAllPath(t0, t3, all);
+
+	while (!all.empty())
+	{
+		path = all.top();
+
+		while (!path.empty())
+		{
+			reverse.push(path.top());
+
+			path.pop();
+		}
+
+		while (!reverse.empty())
+		{
+			std::cout << reverse.top().idVorterx << ' ';
+			reverse.pop();
+		}
+		std::cout << std::endl;
+		all.pop();
+	}
 	return 0;
 }
 
